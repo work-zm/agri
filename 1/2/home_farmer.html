@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Agriculture - Home</title>
+    <link rel="stylesheet" href="style_farmer.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-leaf"></i> Smart Agriculture</h1>
+        <button id="refresh-btn" class="refresh-btn"><i class="fas fa-sync-alt"></i> Refresh</button>
+    </header>
+
+    <main>
+        <section class="cards">
+            <div class="card" id="temp-card">
+                <i class="fas fa-thermometer-half"></i>
+                <h2>Temperature</h2>
+                <p id="temp-value">-- °C</p>
+                <div class="status-icon"><i class="fas fa-sun"></i></div>
+            </div>
+            <div class="card" id="hum-card">
+                <i class="fas fa-tint"></i>
+                <h2>Humidity</h2>
+                <p id="hum-value">-- %</p>
+                <div id="hum-status" class="hum-status">Loading...</div>
+                <div class="status-icon"><i class="fas fa-water"></i></div>
+            </div>
+            <div class="card" id="ph-card">
+                <i class="fas fa-flask"></i>
+                <h2>pH Level</h2>
+                <p id="ph-value">--</p>
+                <div class="status-icon"><i class="fas fa-seedling"></i></div>
+            </div>
+        </section>
+
+        <section class="irrigation-advice">
+            <h2>Irrigation Advice</h2>
+            <div id="irrigation-advice">
+                <div class="advice-values">
+                    Temperature: <span id="advice-temp">--</span> |
+                    Humidity: <span id="advice-hum">--</span> |
+                    pH: <span id="advice-ph">--</span>
+                </div>
+                <div class="advice-result">
+                    Advice: <span id="advice-status">Loading...</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="rain-prediction">
+            <h2>Rain Prediction</h2>
+            <div id="rain-prediction">
+                <div class="prediction-values">
+                    Temperature: <span id="rain-temp">--</span> | 
+                    Humidity: <span id="rain-hum">--</span> | 
+                    pH: <span id="rain-ph">--</span>
+                </div>
+                <div class="prediction-result">
+                    Prediction: <span id="rain-status">Loading...</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="home_farmer.html" class="active"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="history_farmer.html"><i class="fas fa-history"></i><span>History</span></a>
+        <a href="tips.html"><i class="fas fa-lightbulb"></i><span>Tips</span></a>
+    </nav>
+
+    <script src="script_farmer.js"></script>
+</body>
+</html>

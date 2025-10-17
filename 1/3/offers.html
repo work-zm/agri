@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛒 Offers Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-shopping-cart"></i> Offers Management</h1>
+    </header>
+
+    <main>
+        <div class="offers-tabs">
+            <button class="tab-btn active" data-tab="pending">Pending Offers</button>
+            <button class="tab-btn" data-tab="accepted">Accepted Offers</button>
+            <button class="tab-btn" data-tab="rejected">Rejected Offers</button>
+        </div>
+
+        <div id="pending-offers" class="offers-list">
+            <div id="pending-list" class="offers-grid">
+                <!-- Pending offers will be loaded here -->
+            </div>
+        </div>
+
+        <div id="accepted-offers" class="offers-list hidden">
+            <div id="accepted-list" class="offers-grid">
+                <!-- Accepted offers will be loaded here -->
+            </div>
+        </div>
+
+        <div id="rejected-offers" class="offers-list hidden">
+            <div id="rejected-list" class="offers-grid">
+                <!-- Rejected offers will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="home.html"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="soil_type.html"><i class="fas fa-seedling"></i><span>Soil Type</span></a>
+        <a href="profit_loss.html"><i class="fas fa-chart-line"></i><span>Profits</span></a>
+        <a href="history.html"><i class="fas fa-history"></i><span>History</span></a>
+        <a href="offers.html" class="active"><i class="fas fa-shopping-cart"></i><span>Offers</span></a>
+    </nav>
+
+    <div id="add-offer-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add New Offer</h2>
+            <form id="add-offer-form">
+                <label>Client Name:</label>
+                <input type="text" id="client-name" required>
+                <label>Product:</label>
+                <select id="offer-product" required>
+                    <option value="Rice">Rice</option>
+                    <option value="Tomatoes">Tomatoes</option>
+                    <option value="Potatoes">Potatoes</option>
+                    <option value="Grapes">Grapes</option>
+                    <option value="Guava">Guava</option>
+                    <option value="Banana">Banana</option>
+                    <option value="Other Vegetables">Other Vegetables</option>
+                </select>
+                <label>Quantity (kg):</label>
+                <input type="number" id="offer-quantity" step="0.1" required>
+                <label>Proposed Price (per kg):</label>
+                <input type="number" id="offer-price" step="0.01" required>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
