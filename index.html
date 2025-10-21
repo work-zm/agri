@@ -121,25 +121,10 @@
         <p>Empowering Modern Farming</p>
         <button class="btn-get-started" onclick="showLogin()">Get Started</button>
     </div>
+
     <div id="login" class="login">
+        <!-- Login Section -->
         <h2 class="text-center mb-4">Login</h2>
-        <div class="role-cards">
-            <div class="role-card" data-role="farmer" onclick="selectRole('farmer')">
-                <i class="fas fa-hat-cowboy fa-2x text-success"></i>
-                <h5>Farmer</h5>
-                <p>For individual farmers managing crops</p>
-            </div>
-            <div class="role-card" data-role="business" onclick="selectRole('business')">
-                <i class="fas fa-briefcase fa-2x text-success"></i>
-                <h5>Business</h5>
-                <p>For businesses in agriculture</p>
-            </div>
-            <div class="role-card" data-role="supplier" onclick="selectRole('supplier')">
-                <i class="fas fa-truck fa-2x text-success"></i>
-                <h5>Supplier</h5>
-                <p>For suppliers of farming goods</p>
-            </div>
-        </div>
         <form id="loginForm">
             <div class="mb-3">
                 <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
@@ -153,9 +138,31 @@
             </div>
         </form>
         <div id="error" class="error text-center"></div>
+
+        <!-- Register Section -->
+        <h2 class="text-center mt-5 mb-4">Register</h2>
+        <form id="registerForm">
+            <div class="mb-3">
+                <input type="text" class="form-control" id="regUsername" placeholder="Enter username" required>
+            </div>
+            <div class="mb-3">
+                <input type="password" class="form-control" id="regPassword" placeholder="Enter password" required>
+            </div>
+            <div class="mb-3">
+                <select class="form-control" id="regRole" required>
+                    <option value="">Select role</option>
+                    <option value="farmer">Farmer</option>
+                    <option value="business">Business</option>
+                    <option value="supplier">Supplier</option>
+                </select>
+            </div>
+            <button type="submit" class="btn-login">Register</button>
+            <div id="regError" class="error text-center mt-2"></div>
+        </form>
     </div>
 
     <script>
+        const API_BASE = 'https://agri.great-site.net/api';
         let selectedRole = '';
 
         function showLogin() {
@@ -163,27 +170,50 @@
             document.getElementById('login').style.display = 'block';
         }
 
-        function selectRole(role) {
-            selectedRole = role;
-            document.querySelectorAll('.role-card').forEach(card => card.classList.remove('selected'));
-            document.querySelector(`[data-role="${role}"]`).classList.add('selected');
-        }
-
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        // Register
+        document.getElementById('registerForm').addEventListener('submit', async function(e){
             e.preventDefault();
-            const password = document.getElementById('password').value;
-            let redirectUrl = '';
-            if (selectedRole === 'farmer' && password === '1234') {
-                redirectUrl = '2/home_farmer.html';
-            } else if (selectedRole === 'business' && password === '12345') {
-                redirectUrl = '3/home.html';
-            } else if (selectedRole === 'supplier' && password === '123456') {
-                redirectUrl = '4/index.html';
+            const username = document.getElementById('regUsername').value;
+            const password = document.getElementById('regPassword').value;
+            const type = document.getElementById('regRole').value;
+
+            const response = await fetch(`${API_BASE}/register.php`, {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({username, password, type})
+            });
+
+            const result = await response.json();
+            if(result.success){
+                alert('User registered successfully! You can now log in.');
+                document.getElementById('registerForm').reset();
             } else {
-                document.getElementById('error').textContent = 'Invalid password for selected role. Try again.';
-                return;
+                document.getElementById('regError').textContent = result.message;
             }
-            window.location.href = redirectUrl;
+        });
+
+        // Login
+        document.getElementById('loginForm').addEventListener('submit', async function(e){
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const response = await fetch(`${API_BASE}/login.php`, {
+                method: 'POST',
+                headers: {'Content-Type':'application/json'},
+                body: JSON.stringify({username, password})
+            });
+
+            const result = await response.json();
+            if(result.success){
+                let redirectUrl = '';
+                if(result.type === 'farmer') redirectUrl = '2/home_farmer.html';
+                else if(result.type === 'business') redirectUrl = '3/home.html';
+                else if(result.type === 'supplier') redirectUrl = '4/index.html';
+                window.location.href = redirectUrl;
+            } else {
+                document.getElementById('error').textContent = result.message;
+            }
         });
     </script>
 </body>
