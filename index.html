@@ -4,19 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Modern Agriculture Platform</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Montserrat:wght@700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
     body {
-      font-family: 'Roboto', sans-serif;
-      margin: 0;
-      padding: 0;
+      font-family: "Roboto", sans-serif;
       background-color: #F5F5F5;
-      color: #333;
-    }
-    h1, h2, h3 {
-      font-family: 'Montserrat', sans-serif;
     }
     .splash {
       height: 100vh;
@@ -27,17 +21,8 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      text-align: center;
       color: white;
-      animation: fadeIn 2s ease-in-out;
-    }
-    .splash h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-    }
-    .splash p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
+      text-align: center;
     }
     .btn-get-started {
       background-color: #4CAF50;
@@ -46,11 +31,6 @@
       padding: 1rem 2rem;
       border-radius: 50px;
       font-size: 1.1rem;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .btn-get-started:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
     .signup {
       display: none;
@@ -60,7 +40,6 @@
       background: white;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      animation: fadeIn 1s ease-in-out;
     }
     .role-cards {
       display: flex;
@@ -73,18 +52,10 @@
       border: 2px solid #F5F5F5;
       border-radius: 10px;
       cursor: pointer;
-      transition: border-color 0.3s, transform 0.3s;
     }
     .role-card.selected {
       border-color: #4CAF50;
       background-color: #FFF9C4;
-    }
-    .role-card:hover {
-      transform: translateY(-5px);
-    }
-    .form-control:focus {
-      border-color: #4CAF50;
-      box-shadow: none;
     }
     .btn-signup {
       background-color: #4CAF50;
@@ -95,25 +66,7 @@
       border-radius: 5px;
       font-size: 1rem;
     }
-    .btn-signup:hover {
-      background-color: #8BC34A;
-    }
-    .error {
-      color: red;
-      margin-top: 1rem;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @media (max-width: 768px) {
-      .splash h1 {
-        font-size: 2rem;
-      }
-      .role-cards {
-        flex-direction: column;
-      }
-    }
+    .error { color: red; margin-top: 1rem; text-align: center; }
   </style>
 </head>
 <body>
@@ -130,17 +83,14 @@
       <div class="role-card" data-role="farmer" onclick="selectRole('farmer')">
         <i class="fas fa-hat-cowboy fa-2x text-success"></i>
         <h5>Farmer</h5>
-        <p>For individual farmers managing crops</p>
       </div>
       <div class="role-card" data-role="business" onclick="selectRole('business')">
         <i class="fas fa-briefcase fa-2x text-success"></i>
         <h5>Business</h5>
-        <p>For businesses in agriculture</p>
       </div>
       <div class="role-card" data-role="supplier" onclick="selectRole('supplier')">
         <i class="fas fa-truck fa-2x text-success"></i>
         <h5>Supplier</h5>
-        <p>For suppliers of farming goods</p>
       </div>
     </div>
 
@@ -161,7 +111,7 @@
       <p>Already have an account? <a href="login.html" class="text-success">Log In</a></p>
     </div>
 
-    <div id="error" class="error text-center"></div>
+    <div id="error" class="error"></div>
   </div>
 
   <script>
@@ -174,44 +124,47 @@
 
     function selectRole(role) {
       selectedRole = role;
-      document.querySelectorAll('.role-card').forEach(card => card.classList.remove('selected'));
+      document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
       document.querySelector(`[data-role="${role}"]`).classList.add('selected');
     }
 
     document.getElementById('signupForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-
       const username = document.getElementById('username').value.trim();
       const password = document.getElementById('password').value.trim();
-      const errorDiv = document.getElementById('error');
+      const error = document.getElementById('error');
 
       if (!selectedRole) {
-        errorDiv.textContent = "Please select a role first.";
+        error.textContent = 'Please select a role.';
         return;
       }
 
-      const formData = new FormData();
-      formData.append("username", username);
-      formData.append("password", password);
-      formData.append("type", selectedRole);
+      if (!username || !password) {
+        error.textContent = 'Please fill in all fields.';
+        return;
+      }
 
       try {
-        const res = await fetch("https://agri.great-site.net/signup.php", {
-          method: "POST",
-          body: formData
+        const res = await fetch('https://agri.great-site.net/signup.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({
+            username: username,
+            password: password,
+            type: selectedRole
+          })
         });
-
         const data = await res.json();
 
-        if (data.status === "success") {
-          if (data.role === "farmer") window.location.href = "2/home_farmer.html";
-          else if (data.role === "business") window.location.href = "3/home.html";
-          else if (data.role === "supplier") window.location.href = "4/index.html";
+        if (data.status === 'success') {
+          if (selectedRole === 'farmer') window.location.href = '2/home_farmer.html';
+          else if (selectedRole === 'business') window.location.href = '3/home.html';
+          else if (selectedRole === 'supplier') window.location.href = '4/index.html';
         } else {
-          errorDiv.textContent = data.message;
+          error.textContent = data.message || 'Error creating account.';
         }
       } catch (err) {
-        errorDiv.textContent = "Connection error. Please try again.";
+        error.textContent = 'Connection error. Please try again.';
       }
     });
   </script>
