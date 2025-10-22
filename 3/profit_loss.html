@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💰 Profit and Loss Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-chart-line"></i> Profit and Loss Management</h1>
+        <button id="refresh-btn" class="refresh-btn"><i class="fas fa-sync-alt"></i> Refresh</button>
+    </header>
+
+    <main>
+        <section class="charts">
+            <h2>Profit and Loss Summary</h2>
+            <div class="summary-stats">
+                <div class="stat-card">
+                    <h3>Total Profit</h3>
+                    <p id="total-profit">0.00 USD</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Profit Percentage</h3>
+                    <p id="profit-percentage">0.0%</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Loss</h3>
+                    <p id="total-loss">0.00 USD</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Loss Percentage</h3>
+                    <p id="loss-percentage">0.0%</p>
+                </div>
+            </div>
+
+            <div class="filters">
+                <select id="period-filter">
+                    <option value="all">All Time</option>
+                    <option value="daily">Daily</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="yearly">Yearly</option>
+                </select>
+                <div id="date-range" style="display: none;">
+                    <label>From:</label>
+                    <input type="date" id="from-date">
+                    <label>To:</label>
+                    <input type="date" id="to-date">
+                </div>
+                <div id="year-selector" style="display: none;">
+                    <label>Year (select multiple):</label>
+                    <select id="year-select" multiple>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                        
+                    </select>
+                </div>
+                <div id="month-selector" style="display: none;">
+                    <label>Month:</label>
+                    <select id="month-select">
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                    <label>Year:</label>
+                    <select id="month-year-select">
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                        <option value="2029">2029</option>
+                        <option value="2030">2030</option>
+                    </select>
+                </div>
+                <div id="day-selector" style="display: none;">
+                    <label>Date:</label>
+                    <input type="date" id="day-select">
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="profit-loss-chart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <button id="add-product-btn" class="add-btn fixed-btn"><i class="fas fa-plus"></i> Add Product</button>
+
+    <nav class="bottom-nav">
+        <a href="home.html"><i class="fas fa-home"></i><span>Home</span></a>
+        <a href="soil_type.html"><i class="fas fa-seedling"></i><span>Soil Type</span></a>
+        <a href="profit_loss.html" class="active"><i class="fas fa-chart-line"></i><span>Profits</span></a>
+        <a href="history.html"><i class="fas fa-history"></i><span>History</span></a>
+        <a href="offers.html"><i class="fas fa-shopping-cart"></i><span>Offers</span></a>
+    </nav>
+
+    <div id="add-product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add New Product</h2>
+            <form id="add-product-form">
+                <label>Product:</label>
+                <select id="product-name" required>
+                    <option value="Rice">Rice</option>
+                    <option value="Tomatoes">Tomatoes</option>
+                    <option value="Potatoes">Potatoes</option>
+                    <option value="Grapes">Grapes</option>
+                    <option value="Guava">Guava</option>
+                    <option value="Banana">Banana</option>
+                    <option value="Apples">Apples</option>
+                    <option value="Oranges">Oranges</option>
+                    <option value="Carrots">Carrots</option>
+                    <option value="Onions">Onions</option>
+                    <option value="Peppers">Peppers</option>
+                    <option value="Lettuce">Lettuce</option>
+                    <option value="Cabbage">Cabbage</option>
+                    <option value="Other Vegetables">Other Vegetables</option>
+                </select>
+                <label>Date:</label>
+                <input type="date" id="product-date" required>
+                <label>Quantity (kg):</label>
+                <input type="number" id="product-quantity" step="0.1" required>
+                <label>Cost Price per kilo:</label>
+                <input type="number" id="product-cost" step="0.01" required>
+                <label>Selling Price (per kg):</label>
+                <input type="number" id="product-price" step="0.01" required>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

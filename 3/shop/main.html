@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Agriculture Products - Fresh Produce Marketplace</title>
+    <link rel="stylesheet" href="css_pro.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-seedling"></i> Smart Agriculture Products</h1>
+        <nav>
+            <a href="main.html">Products</a>
+            <a href="admin.html">Admin Stats</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="add-product">
+            <h2>Products for Sale</h2>
+            <form id="product-form">
+                <div class="form-group">
+                    <label for="product-image-file">Upload Image:</label>
+                    <input type="file" id="product-image-file" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label for="product-image-url">Or Image URL:</label>
+                    <input type="url" id="product-image-url" placeholder="https://example.com/image.jpg">
+                </div>
+                <div class="form-group">
+                    <label for="product-name">Product Name:</label>
+                    <input type="text" id="product-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="product-price">Price:</label>
+                    <input type="number" id="product-price" step="0.01" required>
+                </div>
+                <button type="submit"><i class="fas fa-plus"></i> Add Product</button>
+                <div id="success-message" style="display: none; color: green; margin-top: 10px; font-weight: bold; animation: fadeIn 0.5s;">Product added successfully!</div>
+            </form>
+        </section>
+
+        <section id="product-list">
+            <h2>Available Products</h2>
+                <div id="products-container" class="product-grid">
+                <!-- Products will be added here dynamically -->
+                <div class="product-card" style="background: #f9f9f9; border: 2px dashed #ccc; text-align: center; padding: 2rem;">
+                    <i class="fas fa-plus-circle" style="font-size: 3rem; color: #ccc;"></i>
+                    <p style="color: #666; margin-top: 1rem;">No products added yet. Add your first product above!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <a href="../home.html" style="color: white; text-decoration: none;"><i class="fas fa-home"></i> Home</a>
+    </footer>
+
+    <script src="script_pro.js"></script>
+</body>
+</html>
